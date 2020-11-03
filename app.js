@@ -40,7 +40,20 @@ inquirer.prompt(userInteraction)
     const userChoice = choice.userInteraction 
 
     if(userChoice === 'addDepartment'){
-        console.log(userChoice)
+        inquirer.prompt(
+            [
+            {
+                name: "departmentAdded",
+                type: "input",
+                message: "Please enter the Department you would like to add"
+            }
+        ])
+        .then(department => {
+           connection.query(`INSERT INTO Department VALUES("${department.departmentAdded}")`, () => {
+            console.log(`${department.departmentAdded} has been successfully added to the Department Table!`)
+        })
+        })
+        
     }
     else if(userChoice === 'addRole'){
         console.log(userChoice)
@@ -50,6 +63,14 @@ inquirer.prompt(userInteraction)
     }
     else if(userChoice === 'viewDepartment'){
         console.log(userChoice)
+        connection.query(`SELECT * FROM Department`, (err, res) => {
+           res.forEach(department => {
+            console.log('Department Name: ' + department.departmentName);
+            console.log('Department ID: ' + department.departmentId); 
+            console.log('----------------')
+           })
+            
+        })
     }
     else if(userChoice === 'viewRole'){
         console.log(userChoice)
