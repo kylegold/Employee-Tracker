@@ -64,6 +64,38 @@ inquirer.prompt(userInteraction)
     }
     else if(userChoice === 'addRole'){
         console.log(userChoice)
+        inquirer.prompt(
+            [
+            {
+                name: "roleTitleAdded",
+                type: "input",
+                message: "Please enter the Role title"
+            },
+            {
+                name: "roleSalaryAdded",
+                type: "input",
+                message: "Please enter the Role salary"
+            },
+            {
+                name: "departmentId",
+                type: "input",
+                message: "Please enter the Department Id"
+            }
+        ])
+        .then(role => {
+           connection.query(`INSERT INTO Role(roleTitle, salary, departmentId) VALUES("${role.roleTitleAdded}", "${role.roleSalaryAdded}", "${role.departmentId}")`, (err, res) => {
+            if (err){
+                throw err
+            }
+            else{
+                console.log(`${role.roleTitleAdded} has been successfully added to the Department Table!`)
+                console.log(`${role.roleTitleAdded} Salary: $${role.roleSalary}`)
+
+                console.log(res)
+            }
+          
+        })
+        })
     }
     else if(userChoice === 'addEmployee'){
         console.log(userChoice)
