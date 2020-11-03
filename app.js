@@ -49,8 +49,15 @@ inquirer.prompt(userInteraction)
             }
         ])
         .then(department => {
-           connection.query(`INSERT INTO Department VALUES("${department.departmentAdded}")`, () => {
-            console.log(`${department.departmentAdded} has been successfully added to the Department Table!`)
+           connection.query(`INSERT INTO Department(departmentName) VALUES("${department.departmentAdded}")`, (err, res) => {
+            if (err){
+                throw err
+            }
+            else{
+                console.log(`${department.departmentAdded} has been successfully added to the Department Table!`)
+                console.log(res)
+            }
+          
         })
         })
         
