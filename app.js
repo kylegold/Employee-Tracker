@@ -74,9 +74,29 @@ inquirer.prompt(userInteraction)
     }
     else if(userChoice === 'viewRole'){
         console.log(userChoice)
+        connection.query(`SELECT * FROM Role`, (err, res) => {
+            res.forEach(role => {
+             console.log('Role Name: ' + role.roleTitle);
+             console.log('Role ID: ' + role.roleId); 
+             console.log('Salary: ' + role.salary); 
+             console.log('Department ID: ' + role.departmentId); 
+             console.log('----------------')
+            })
+             
+         })
     }
     else if(userChoice === 'viewEmployee'){
         console.log(userChoice)
+        connection.query(`SELECT * FROM Employee`, (err, res) => {
+            res.forEach(employee => {
+             console.log('Employee Name: ' + employee.first_name + employee.last_name); 
+             console.log('Salary: ' + employee.employeeId); 
+             console.log('Role ID: ' + employee.roleId);
+             console.log('Manager ID' + employee.managerId) 
+             console.log('----------------')
+            })
+             
+         })
     }
     else if(userChoice === 'updateEmployeeRole'){
         console.log(userChoice)
