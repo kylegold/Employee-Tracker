@@ -26,7 +26,8 @@ const userInteraction = [
             "addEmployee",
             "viewDepartment",
             "viewRole",
-            "viewEmployee"
+            "viewEmployee",
+            "updateEmployeeRole"
         ]
     }
 ]
@@ -34,44 +35,11 @@ const userInteraction = [
 // Prompt user to add new.. departments, roles, employees
 // Prompt user to view.. departments, roles, employees
 // Prompt user to update employee role
-const userControls = () => {
-    inquirer.prompt(userInteraction)
+inquirer.prompt(userInteraction)
 .then(choice => {
     const userChoice = choice.userInteraction 
 
-    switch (userChoice) {
-        case 'addDepartment':
-        addDepartment();
-        break;
-        
-        case 'addRole':
-        addRole();
-        break;
-        
-        case 'addEmployee':
-        addEmployee();
-        break;
-
-        case 'viewDepartment':
-        viewDepartments();
-        break;
-
-        case 'viewRole':
-        viewRoles();
-        break;
-        
-        case 'viewEmployee':
-        viewEmployees();
-        break;
-
-    }
-    })
-    
-}
-userControls()
-   
-
-const addDepartment = () => {
+    if(userChoice === 'addDepartment'){
         inquirer.prompt(
             [
             {
@@ -93,9 +61,9 @@ const addDepartment = () => {
         })
         })
         
-}
-
-const addRole = () => {
+    }
+    else if(userChoice === 'addRole'){
+        console.log(userChoice)
         inquirer.prompt(
             [
             {
@@ -129,11 +97,9 @@ const addRole = () => {
           
         })
         })
-        
-}
-
-const addEmployee = () => {
- 
+    }
+    else if(userChoice === 'addEmployee'){
+        console.log(userChoice)
         inquirer.prompt(
             [
             {
@@ -167,22 +133,20 @@ const addEmployee = () => {
           
         })
         })
-}
-
-const viewDepartments = () => {
-    connection.query(`SELECT * FROM Department`, (err, res) => {
-        res.forEach(department => {
-         console.log('Department Name: ' + department.departmentName);
-         console.log('Department ID: ' + department.departmentId); 
-         console.log('----------------')
+    }
+    else if(userChoice === 'viewDepartment'){
+        console.log(userChoice)
+        connection.query(`SELECT * FROM Department`, (err, res) => {
+           res.forEach(department => {
+            console.log('Department Name: ' + department.departmentName);
+            console.log('Department ID: ' + department.departmentId); 
+            console.log('----------------')
+           })
+            
         })
-         
-     })
-     userControls()
-}
-
- 
-const viewRoles = () => {        
+    }
+    else if(userChoice === 'viewRole'){
+        console.log(userChoice)
         connection.query(`SELECT * FROM Role`, (err, res) => {
             res.forEach(role => {
              console.log('Role Name: ' + role.roleTitle);
@@ -190,13 +154,13 @@ const viewRoles = () => {
              console.log('Salary: ' + role.salary); 
              console.log('Department ID: ' + role.departmentId); 
              console.log('----------------')
-            })     
+            })
+             
          })
-         userControls()
-        }
-
-const viewEmployees = () => {        
-                    connection.query(`SELECT * FROM Employee`, (err, res) => {
+    }
+    else if(userChoice === 'viewEmployee'){
+        console.log(userChoice)
+        connection.query(`SELECT * FROM Employee`, (err, res) => {
             res.forEach(employee => {
              console.log('Employee Name: ' + employee.first_name + employee.last_name); 
              console.log('Salary: ' + employee.employeeId); 
@@ -204,7 +168,11 @@ const viewEmployees = () => {
              console.log('Manager ID' + employee.managerId) 
              console.log('----------------')
             })
-            })
-            // userControls()
-            
-        }
+             
+         })
+    }
+    else if(userChoice === 'updateEmployeeRole'){
+        console.log(userChoice)
+    }
+    
+})
