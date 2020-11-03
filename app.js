@@ -88,8 +88,9 @@ inquirer.prompt(userInteraction)
                 throw err
             }
             else{
-                console.log(`${role.roleTitleAdded} has been successfully added to the Department Table!`)
-                console.log(`${role.roleTitleAdded} Salary: $${role.roleSalary}`)
+                console.log(`${role.roleTitleAdded} has been successfully added to the Role Table!`)
+                console.log(`${role.roleTitleAdded} Salary: $${role.roleSalaryAdded}`)
+                console.log(`Department ID: $${role.departmentId}`)
 
                 console.log(res)
             }
@@ -99,6 +100,39 @@ inquirer.prompt(userInteraction)
     }
     else if(userChoice === 'addEmployee'){
         console.log(userChoice)
+        inquirer.prompt(
+            [
+            {
+                name: "employeeFirstName",
+                type: "input",
+                message: "Please enter employees' First Name"
+            },
+            {
+                name: "employeeLastName",
+                type: "input",
+                message: "Please enter employees' Last Name"
+            },
+            {
+                name: "roleId",
+                type: "input",
+                message: "Please enter the Role Id"
+            }
+        ])
+        .then(employee => {
+           connection.query(`INSERT INTO Employee(first_name, last_name, roleId) VALUES("${employee.employeeFirstName}", "${employee.employeeLastName}", "${employee.roleId}")`, (err, res) => {
+            if (err){
+                throw err
+            }
+            else{
+                console.log(`${employee.employeeFirstName} ${employee.employeeLastName} has been successfully added to the Employee Table!`)
+                console.log(`Role ID: $${employee.roleId}`)
+                // console.log(`Manager ID: $${employee.managerId}`)
+
+                console.log(res)
+            }
+          
+        })
+        })
     }
     else if(userChoice === 'viewDepartment'){
         console.log(userChoice)
