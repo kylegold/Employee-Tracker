@@ -37,5 +37,28 @@ const userInteraction = [
 // Prompt user to update employee role
 inquirer.prompt(userInteraction)
 .then(choice => {
-    console.log(choice)
+    const userChoice = choice.userInteraction 
+
+    if(userChoice === 'addDepartment'){
+        console.log(userChoice)
+    }
+    else if(userChoice === 'addRole'){
+        console.log(userChoice)
+    }
+    else if(userChoice === 'addEmployee'){
+        console.log(userChoice)
+    }
+    else if(userChoice === 'viewDepartment'){
+        console.log(userChoice)
+    }
+    else if(userChoice === 'viewRole'){
+        console.log(userChoice)
+    }
+    else if(userChoice === 'viewEmployee'){
+        console.log(userChoice)
+    }
+    else if(userChoice === 'updateEmployeeRole'){
+        console.log(userChoice)
+    }
+    
 })
